@@ -1,0 +1,111 @@
+.\" manpage for the JSSGrabber
+.\" Contact bryson.tyrrell@jamfsoftware.com with feature requests or bug reports
+.TH JAMF 1 "19 Dec 2012" "7.0b" "JSSGrabber for Linux VM man page"
+.SH PURPOSE
+Automation for deploying and managing JSS contexts within a single server;
+creating, configuring and managing MySQL databases for JSS contexts; creating, configuring
+and managing local Distribution Points for JSS contexts; and creating and managing web
+certificates for JSS contexts.
+.SH SYNOPSIS
+sudo jssgrabber
+.P
+sudo jssmanager
+.P
+sudo distromanager
+.P
+sudo certmanager
+.P
+sudo jamfupdate
+.B "[-b]"
+.P
+man jamf
+.SH INSTALLED COMPONENTS
+avahi-daemon
+.I "(for Bonjour)"
+.br
+openjdk-7-jdk
+.br
+tomcat7
+.br
+tomcat7-admin
+.br
+mysql-server-5.5
+.br
+samba
+.I "(for SMB file sharing)"
+.br
+netatalk
+.I "(for AFP file sharing)"
+.br
+libxml2-utils
+.I "(for XML parsing)"
+.br
+unzip
+.br
+sshpass
+.I "(to assist SSH and SCP commands)"
+.SH TOTAL LINES OF CODE
+.P
+2,188
+.SH DESCRIPTION
+The 'JSSGrabber VM' is a tool to deploy new JSS contexts on a single VM server
+with either shared or unique databases for each JSS. This VM contains programs which
+assist the user in configuring the server and then downloading and deploying those JSS's.
+.P
+The 'jssgrabber', runs at every login and presents the user with interactive
+menus to manage the server, deploy JSS contexts and create, download or import MYSQL databases
+for those JSS contexts. The 'jssgrabber' supports deploying the following versions of the JSS:
+ v8.3 to v8.7. When creating a database, the user may download the JAMF demo database, the
+JAMF EDU database, import a SQL file from a target Mac, duplicate an existing database,
+create a blank database, or only write database connection information to the JSS they deployed
+(if they did deploy a JSS) for local or remote databases.
+.P
+The 'jssmanager', is accessible from the Main Menu. This program will display
+all of the existing JSS contexts on the server, their corresponding version, and the
+associated MySQL database they are linked to. You will then be presented options for deleting
+the JSS context, MySQL database, or both.
+.P
+The 'distromanager', is accessible frm the Main Menu. This program will configure
+file sharing services for the VM, create the required 'casperadmin' and 'casperinstall' users,
+and assign the required permissions for new Casper Shares as they are created. Users may delete
+any shares they create, and uninstall the file sharing services if problems are encountered,
+allowing the program to reinstall and reconfigure them upon the next launch. Also included in
+the program is a feature to create dummy packages sources from JSS's database. This allows a
+context created in 'jssgrabber' that is using a restored database to have a Casper Share that
+appears to be populated with all of the correct packages, DMGs and other files on record.
+.P
+The 'certmanager', automates the creation of web certificates signed by a JSS
+context's certificate authority, saving the created keystores, and allowing the user to switch
+back and forth between them by setting any created keystore for a JSS context as the 'active' keystore.
+.P
+The 'jamfupdate', is accessible from the Main Menu. This program will download
+and install the latest versions of the 'JSSGrabber' programs.
+.SH OPTIONS
+There are no options for 'jssgrabber' at this time.
+.P
+There are no options for 'jssmanager' at this time.
+.P
+There are no options for 'distromanager' at this time.
+.P
+There are no options for 'certmanager' at this time.
+.P
+.B "Options for 'jamfupdate'"
+.HP
+.B "[-b] "
+The [-b] option when running 'jamfupdate' from the command line will install beta
+versions of the programs. Beta versions will contain new features, fixes and enhancements
+but are not fully tested and may prove to be unstable and corrupt services or files. Use
+with caution.
+.SH ERRORS
+.P
+.B "jssgrabber / certmanager / distromanager / jssmanager / jamfupdate"
+.IP
+.I "'PROGRAM' must be run as root. Exiting . . ."
+.IP
+The program will run a check that 'sudo' has been invoked. It will exit automatically
+if the check fails. If you are running the program from the command line, be sure
+to include 'sudo' before the command. If you are seeing this error when the program autoruns
+at login, then the 'sudoers' file has been altered and will need to be corrected.
+.SH VERSION HISTORY
+.SH AUTHOR
+Bryson Tyrrell (bryson.tyrrell@jamfsoftware.com)
